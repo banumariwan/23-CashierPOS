@@ -1,124 +1,141 @@
-# 🛫 Airport Management System (Fullstack)
+📽️ Movie Explorer & Booking Platform
+🎬 Overview
 
-A fullstack web application to manage flights, passengers, and bookings. Built with **Django REST Framework** for the backend and **React** for the frontend.
+Movie Explorer is a full-stack movie browsing and booking platform built with Django REST Framework and React.
+Users can explore movies, view details, book tickets for screenings, and manage their bookings.
+Admins have a dashboard with live statistics for total movies, screenings, and bookings.
 
----
+🚀 Features
 
-## 🧰 Tech Stack
+✅ JWT Authentication (login & secure booking)
+✅ Browse & search movies by title or genre
+✅ Detailed movie pages with booking forms
+✅ Admin Dashboard for platform insights
+✅ Responsive UI built with Tailwind CSS
+✅ Fully connected REST API (Django ↔ React)
 
-**Backend:**  
-- Django 5.2  
-- Django REST Framework  
-- SQLite (for development)  
-- JWT Authentication (via `djangorestframework-simplejwt`)  
-- CORS Headers (`django-cors-headers`)
+🧱 Tech Stack
+Layer	Technology
+Frontend	React, Axios, Tailwind CSS
+Backend	Django, Django REST Framework, JWT (SimpleJWT)
+Database	SQLite (dev) / PostgreSQL (prod)
+Deployment	Render (backend), Vercel (frontend)
+📦 Project Structure
+movie_explorer/
+│
+├── movie_backend/
+│   ├── core/
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── serializers.py
+│   │   └── urls.py
+│   ├── movie_backend/
+│   │   ├── settings.py
+│   │   └── urls.py
+│   └── manage.py
+│
+└── movie_frontend/
+    ├── src/
+    │   ├── components/
+    │   ├── pages/
+    │   ├── services/api.js
+    │   └── App.js
+    ├── package.json
+    └── tailwind.config.js
 
-**Frontend:**  
-- React 18+  
-- Axios for API calls  
-- Tailwind CSS (optional styling)  
-- React Hooks (`useState`, `useEffect`)  
-
-**Tools & Environment:**  
-- Git & GitHub for version control  
-- VS Code / PyCharm for development  
-- Node.js & npm for frontend package management  
-
----
-
-## 🚀 Features
-
-- **Flights Management:** Create, read, update, delete flights  
-- **Passengers Management:** Create, read, update, delete passengers  
-- **Bookings Management:** Book passengers on flights, manage status (Confirmed / Cancelled)  
-- **Dashboard:** Overview of total flights, cancelled flights, upcoming flights, and total bookings  
-- **Search & Filter:** Search for flights by flight number, origin, destination, and passenger name  
-
----
-
-## 💻 Installation
-
-### Backend (Django)
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/banumariwan/banu-airport-management-fullstack.git
-   cd banu-airport-management-fullstack/airport_backend
-Create virtual environment and activate:
-
-bash
-Copy code
-python -m venv .venv
-.venv\Scripts\activate   # Windows
-source .venv/bin/activate # macOS/Linux
-Install dependencies:
-
-bash
-Copy code
+⚙️ Setup Instructions
+1️⃣ Backend (Django)
+cd movie_backend
+python -m venv venv
+venv\Scripts\activate   # macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
-Run migrations:
-
-bash
-Copy code
 python manage.py migrate
-Create superuser (optional):
-
-bash
-Copy code
 python manage.py createsuperuser
-Start backend server:
-
-bash
-Copy code
 python manage.py runserver
-Frontend (React)
-Navigate to frontend folder:
 
-bash
-Copy code
-cd ../frontend
-Install npm packages:
 
-bash
-Copy code
+By default, API runs at:
+👉 http://127.0.0.1:8000/api/
+
+2️⃣ Frontend (React)
+cd movie_frontend
 npm install
-Start frontend server:
-
-bash
-Copy code
 npm start
-Frontend will run at http://localhost:3000 and communicate with Django backend at http://localhost:8000/api/
-
-📂 Project Structure
-bash
-Copy code
-airport_backend/      # Django backend
-├─ core/              # App with models, views, serializers
-├─ airport_backend/   # Project settings
-frontend/             # React frontend
-├─ src/pages/         # React pages (FlightList, FlightForm, Dashboard, etc.)
-├─ src/services/      # Axios API service
-🔑 API Endpoints
-Resource	Endpoint	Methods
-Flights	/api/flights/	GET, POST, PUT, DELETE
-Passengers	/api/passengers/	GET, POST, PUT, DELETE
-Bookings	/api/bookings/	GET, POST, PUT, DELETE
-Dashboard	/api/dashboard/	GET
-Auth (JWT)	/api/token/	POST
-Refresh JWT	/api/token/refresh/	POST
 
 
+Frontend runs at:
+👉 http://localhost:3000
 
-📝 Notes
-Make sure backend is running before using the frontend, otherwise API calls will fail.
+🔑 Authentication (JWT)
+Endpoint	Method	Description
+/api/token/	POST	Obtain JWT token
+/api/token/refresh/	POST	Refresh token
 
-.env file can be used for secret keys, database settings, and API URLs.
+Login Body Example
 
-Tailwind CSS is optional; you can remove it if you prefer plain CSS.
+{
+  "username": "testuser",
+  "password": "1234"
+}
 
-🔗 Live Demo
-If deployed:
-https://your-live-demo-link.com
+🧩 Main API Endpoints
+Resource	Endpoint	Method	Auth	Description
+Movies	/api/movies/	GET	❌	List/search movies
+Movie Detail	/api/movies/:id/	GET	❌	Movie info
+Bookings	/api/bookings/	GET/POST	✅	User bookings
+Dashboard	/api/dashboard/	GET	✅	Admin statistics
+🖥️ Screens
+Screen	Description
+Home	List & search movies
+Movie Detail	View movie details & book seats
+Login	Obtain JWT token
+Admin Dashboard	Platform analytics cards
+🧠 Admin Dashboard Metrics
 
-📦 License
-This project is open source and free to use
+Total movies
+
+Total screenings
+
+Total bookings
+
+Upcoming screenings count
+
+🌍 Deployment
+Django Backend → Render
+
+Push code to GitHub
+
+Create new Render web service
+
+Set start command:
+
+gunicorn movie_backend.wsgi
+
+
+Add environment variable:
+
+ALLOWED_HOSTS = ['*']
+
+React Frontend → Vercel
+
+Connect GitHub repo
+
+Set build command: npm run build
+
+Update api.js base URL to your deployed backend
+
+💡 Future Enhancements
+
+✅ Add seat selection interface
+
+✅ Add user signup page
+
+✅ Payment gateway integration
+
+✅ Dark mode toggle
+
+👨‍💻 Author
+
+Developed by: "Banu Mariwan"
+💼 Role: Full-Stack Engineer / Cyber Security Enthusiast
+📅 Year: 2025
